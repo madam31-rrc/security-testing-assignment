@@ -1,10 +1,9 @@
 ---
 name: Super-Linter
 
-# yamllint disable-line rule:truthy
 on:
-  push: null
-  pull_request: null
+  push:
+  pull_request:
 
 permissions: {}
 
@@ -28,3 +27,7 @@ jobs:
         uses: super-linter/super-linter@v8.0.0
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          VALIDATE_PYTHON_PYLINT: true
+          VALIDATE_PYTHON_FLAKE8: true
+          # Don't fail on warnings
+          DISABLE_ERRORS: false
