@@ -1,36 +1,22 @@
 name: Bandit Security Scan
-
+ 
 on:
   push:
   pull_request:
-
-permissions:
-  contents: read
-  security-events: write
-
+  workflow_dispatch:
+ 
 jobs:
   bandit:
     runs-on: ubuntu-latest
-    name: Bandit Security Scan
-    
+ 
     steps:
-      - name: Checkout code
+      - name: Checkout repository code
         uses: actions/checkout@v4
-      
-      - name: Set up Python
-        uses: actions/setup-python@v4
+ 
+      - name: Run Bandit Security Scan
+        uses: shundor/python-bandit-scan@v1.0
         with:
-          python-version: '3.x'
-      
-      - name: Install Bandit
-        run: pip install bandit[sarif]
-      
-      - name: Run Bandit Scan
-        run: bandit -r . -f sarif -o bandit-results.sarif --exit-zero
-        continue-on-error: true
-      
-      - name: Upload SARIF file
-        uses: github/codeql-action/upload-sarif@v3
-        if: always()
-        with:
-          sarif_file: bandit-results.sarif
+          path: "."
+          level: high
+          confidence: high
+          exit_zero: true
