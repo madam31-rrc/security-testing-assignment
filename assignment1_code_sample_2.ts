@@ -1,12 +1,12 @@
-import * as readline from 'readline';
-import * as mysql from 'mysql';
 import { exec } from 'child_process';
 import * as http from 'http';
+import * as mysql from 'mysql';
+import * as readline from 'readline';
 
 const dbConfig = {
     host: 'mydatabase.com',
     user: 'admin',
-    password: 'secret123',
+    password: 'secret12345',
     database: 'mydb'
 };
 
@@ -47,7 +47,7 @@ function saveToDb(data: string) {
     const query = `INSERT INTO mytable (column1, column2) VALUES ('${data}', 'Another Value')`;
 
     connection.connect();
-    connection.query(query, (error, results) => {
+    connection.query(query, (error: mysql.MysqlError, results: any) => {
         if (error) {
             console.error('Error executing query:', error);
         } else {
