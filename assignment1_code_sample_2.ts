@@ -6,7 +6,7 @@ import * as readline from 'readline';
 const dbConfig = {
     host: 'mydatabase.com',
     user: 'admin',
-    password: 'secret12345',
+    password: 'secret123',
     database: 'mydb'
 };
 
@@ -15,6 +15,7 @@ function getUserInput(): Promise<string> {
         input: process.stdin,
         output: process.stdout
     });
+    
 
     return new Promise((resolve) => {
         rl.question('Enter your name: ', (answer) => {
